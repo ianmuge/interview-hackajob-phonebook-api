@@ -68,9 +68,15 @@ class ContactController extends Controller
     }
     public function search(Request $request)
     {
-        $contact = Contact::where('phonenumber', 'like', '%'.$request->q.'%')
-            ->orWhere('name', 'like', '%'.$request->q.'%')
-            ->orWhere('address', 'like', '%'.$request->q.'%')
+        $query=$request->get('q');
+        if(isset($query)){
+            response()->json([
+                'error' => 'No search query'
+            ],422);
+        }
+        $contact = Contact::where('phonenumber', 'like', '%'.$query.'%')
+            ->orWhere('name', 'like', '%'.$query.'%')
+            ->orWhere('address', 'like', '%'.$query.'%')
             ->paginate(10);
         return ContactResource::collection($contact);
 

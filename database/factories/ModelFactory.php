@@ -17,8 +17,7 @@ $fakerGB = Faker\Factory::create('en_GB');
 $factory->define(App\User::class, function (Faker\Generator $faker) use ($fakerGB) {
     return [
         'name'     => $fakerGB->name,
-        'email'    => $fakerGB->unique()->email,
-//        'password' => bcrypt('AGoodPassword'),
+        'email'    => 'user@example.com',//$fakerGB->unique()->email,
         'password' => Hash::make('AGoodPassword'),
     ];
 });
