@@ -17,3 +17,4 @@ $router->get('/contact/{id}', 'ContactController@show');
 $router->put('/contact/{id}', 'ContactController@update');
 $router->patch('/contact/{id}', 'ContactController@update');
 $router->delete('/contact/{id}', 'ContactController@destroy');
+$router->get('/contact/search', 'ContactController@search');

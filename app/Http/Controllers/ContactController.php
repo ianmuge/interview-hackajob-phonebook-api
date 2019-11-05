@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $contact = ContactResource::collection(Contact::paginate(10));
-        return $contact;
+        if($request->q) {
+            $contact = Contact::search($request->q)->paginate(10);
+        }else {
+            $contact = Contact::paginate(10);
+        }
+        return ContactResource::collection($contact);
     }
     public function store(Request $request)
     {
@@ -62,7 +66,13 @@ class ContactController extends Controller
             'contact' => ContactResource::make($contact)
         ]);
     }
-    public function search(Request $request){
+    public function search(Request $request)
+    {
+        $contact = Contact::where('phonenumber', 'like', '%'.$request->q.'%')
+            ->orWhere('name', 'like', '%'.$request->q.'%')
+            ->orWhere('address', 'like', '%'.$request->q.'%')
+            ->paginate(10);
+        return ContactResource::collection($contact);
 
     }
 
