@@ -99,7 +99,7 @@ class ContactsTest extends TestCase
     public function test_valid_delete()
     {
         $contact=\App\Contact::all()->random();
-        $this->delete('/contact/'.$contact->id,['Authorization' => 'Bearer '.$this->active_token]);
+        $this->delete('/contact/'.$contact->id,[],['Authorization' => 'Bearer '.$this->active_token]);
         $this->assertResponseStatus(200);
         $this->assertStringContainsString("contact",$this->response->getContent());
 
@@ -107,7 +107,7 @@ class ContactsTest extends TestCase
     public function test_invalid_delete()
     {
         $contact=\App\Contact::all()->last();
-        $this->delete('/contact/'.($contact->id+1),['Authorization' => 'Bearer '.$this->active_token]);
+        $this->delete('/contact/'.($contact->id+1),[],['Authorization' => 'Bearer '.$this->active_token]);
         $this->assertResponseStatus(404);
 
     }
