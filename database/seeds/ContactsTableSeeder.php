@@ -3,7 +3,7 @@
 use App\Contact;
 use Illuminate\Database\Seeder;
 
-class ContactsSeeder extends Seeder
+class ContactsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
